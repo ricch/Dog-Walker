@@ -1,0 +1,54 @@
+body, html {
+	font-size: 10px;
+	font-family: $primaryFont;
+}
+
+body {}
+
+h1, h2, h3, ,h4, h5, h6 {
+	font-weight: 300;
+	font-family: $secondaryFont;
+}
+
+h1 {
+	font-size: 6rem;
+}
+h2 {}
+h3 {}
+h4 {}
+
+a {
+	color: $primaryColor;
+	text-decoration: none;
+	transition: .3s all;
+}
+
+p {font-size: 1.6rem; line-height: 1.6;}
+
+li {font-size: 1.4rem;}
+
+img {max-width: 100%;}
+
+button {}
+
+.wrapper {
+	max-width: 1170px;
+	margin: 0 auto;
+}
+
+.mobileShow {
+	display: none;
+	@include respond-to('small') {
+		display: block;
+	}
+}
+
+.mobileHide {
+	@include respond-to('small') {
+		display: none;
+	}
+}
+
+.hidden {
+	display: none;
+}

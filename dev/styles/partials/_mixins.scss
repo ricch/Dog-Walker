@@ -1,0 +1,34 @@
+// Responsive Mixin Snippet provided by Kristen Spencer via Slack
+
+@mixin respond-to($breakpoint) {
+  @if $breakpoint == "small" {
+    @media (max-width: 480px) {
+      @content;
+    }
+  }
+
+  @else if $breakpoint == "medium" {
+    @media (max-width: 768px) {
+      @content;
+    }
+  }
+
+  @else if $breakpoint == "large" {
+    @media (min-width: 769px) {
+      @content;
+    }
+  }
+
+  @else if $breakpoint == "xlarge" {
+    @media (min-width: 1500px) {
+      @content;
+    }
+  }
+
+
+  @else {
+    @media ($breakpoint) {
+      @content;
+    }
+  }
+}
