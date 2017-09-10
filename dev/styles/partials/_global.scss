@@ -8,12 +8,12 @@ body {}
 h1, h2, h3, ,h4, h5, h6 {
 	font-weight: 300;
 	font-family: $secondaryFont;
+	margin: 0;
+	padding: 0;
 }
 
-h1 {
-	font-size: 6rem;
-}
-h2 {}
+h1 {font-size: 6rem;}
+h2 {font-size: 3rem;}
 h3 {}
 h4 {}
 
@@ -23,7 +23,7 @@ a {
 	transition: .3s all;
 }
 
-p {font-size: 1.6rem; line-height: 1.6;}
+p {font-size: 1.6rem; line-height: 1.6; margin: 10px 0; padding: 0;}
 
 li {font-size: 1.4rem;}
 
