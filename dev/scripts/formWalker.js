@@ -4,9 +4,9 @@ class FormWalker extends React.Component {
 	render (){
 		return (
 			<form onSubmit={this.props.handleSubmit}>
-				<input type="text" name="walkerName" placeholder="Dog walker name?" onChange={this.props.handleChange} value={this.props.walkerName}/> 
-				<input type="email" name="walkerEmail" placeholder="Email" onChange={this.props.handleChange} value={this.props.walkerEmail}/> 
-				<input type="number" name="walkerPhone" placeholder="Phone #" onChange={this.props.handleChange} value={this.props.walkerPhone}/> 
+				<input type="text" name="walkerName" placeholder="Dog walker name?" onChange={this.props.handleChange} value={this.props.walkerName} required="true"/> 
+				<input type="email" name="walkerEmail" placeholder="Email" onChange={this.props.handleChange} value={this.props.walkerEmail} required="true"/> 
+				<input type="number" name="walkerPhone" placeholder="Phone #" onChange={this.props.handleChange} value={this.props.walkerPhone} required="true"/> 
 				<input type="text" name="walkerPostal" placeholder="Location (Postal Code)" onChange={this.props.handleChange} value={this.props.walkerPostal}/> 
 
 				<button>Submit</button>

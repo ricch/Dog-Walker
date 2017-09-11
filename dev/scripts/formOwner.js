@@ -3,19 +3,6 @@ import DogBreeds from './dogBreeds.js';
 
 import AutoComplete from 'react-autocomplete';
 import Select from 'react-select';
-//////
-
-var Select2 = require('react-select');
-
-var options2 = [
-  { value: 'one', label: 'One' },
-  { value: 'two', label: 'Two' }
-];
-
-function logChange(val) {
-  console.log("Selected: " + JSON.stringify(val));
-}
-
 
 ///////
 
@@ -28,55 +15,62 @@ class FormOwner extends React.Component {
 	// }
 	render (){
 		return (
-			<form>
-				<input type="text" name="dogOwner" placeholder="Dog Owner's Name"/>
-				<input type="text" name="dogName" placeholder="Dog's Name"/>
-				<input type="number" name="dogAge" min="0" placeholder="Dog's Age (years)"/>
+			<form onSubmit={this.props.handleSubmit}> 
+				<h2>Owner Information</h2>
+				<div>
+					<label htmlFor="dogOwner">Name</label>
+					<input type="text" name="dogOwner" placeholder="eg - John Smith" onChange={this.props.handleChange} value={this.props.dogOwner} required="true"/>
+				</div>
+				<div>
+					<label htmlFor="dogOwner">Email</label>
+					<input type="email" name="dogEmail" placeholder="eg - john@smith.com" onChange={this.props.handleChange} value={this.props.dogEmail} required="true"/>
+				</div>
+				<div>
+					<label htmlFor="dogOwner">Phone #</label>
+					<input type="number" name="dogPhone" placeholder="eg - 9671111" onChange={this.props.handleChange} value={this.props.dogPhone} required="true"/>
+				</div>
+				<div>
+					<label htmlFor="dogOwner">Postal Code</label>
+					<input type="text" name="dogPostal" placeholder="eg - M1M (first three characters only) " onChange={this.props.handleChange} value={this.props.dogPostal}/>
+				</div>
+				<h2>Details About Your Canine Companion</h2>
+				<div>
+					<label htmlFor="dogName">Name</label>
+					<input type="text" name="dogName" placeholder="eg - Sparky" onChange={this.props.handleChange} value={this.props.dogName} required="true"/>
+				</div>
+				<div>
+					<label htmlFor="dogAge">Age (yrs)</label>
+					<input type="number" name="dogAge" min="0" placeholder="eg - 8" onChange={this.props.handleChange} value={this.props.dogAge}/>
+				</div>
+				<div>
+					<label htmlFor="dogBreed">Breed</label>
+					<input type="text" name="dogBreed" placeholder="eg - Great Dane" onChange={this.props.handleChange} value={this.props.dogBreed}/>
+				</div>
 				
-				<input type="text" name="dogBreed" placeholder="Dog's breed" id="tags"/>
-				
-				<Select2 name="form-field-name" value="one" options={options2} onChange={logChange}/>
-				{
-				/*<AutoComplete 
-					items={DogBreeds}
-					getItemValue={(item) => item}
-					renderItem={(item, isHighlighted) =>
-					    <div >
-					      {item}
-					    </div>
-					}
-					value={this.state.value}
-					onChange={(e) => {
-						this.setState({
-							value: e.target.value
-						})
-					}}
-					onSelect={(val) => {
-						this.setState({
-							value: val
-						})
-					}}
-				 />
-				*/}
+				<div>
+					<label htmlFor="dogGender">Gender</label>
+					<select name="dogGender">
+						<option value="" disabled selected>- Select -</option>
+						<option value="Male">Male</option>
+						<option value="Female">Female</option>
+					</select>
+				</div>
 
+				<div>
+					<label htmlFor="dogSize">Size</label>
+					<select name="dogSize">
+						<option value="" disabled selected>- Select -</option>
+						<option value="xs">XS (0-10 lb)</option>
+						<option value="s">S (10-25 lb)</option>
+						<option value="m">M (20-50 lb)</option>
+						<option value="l">L (50-75 lb)</option>
+						<option value="xl">XL (75-90 lb)</option>
+						<option value="xxl">XL (90+ lb)</option>
+					</select>
+				</div>
 
-				<select name="dogGender">
-					<option value="Male">Male</option>
-					<option value="Female">Female</option>
-				</select>
-
-				<select name="dogSize">
-					<option value="xs">XS (0-10 lb)</option>
-					<option value="s">S (10-25 lb)</option>
-					<option value="m">M (20-50 lb)</option>
-					<option value="l">L (50-75 lb)</option>
-					<option value="xl">XL (75-90 lb)</option>
-					<option value="xxl">XL (90+ lb)</option>
-				</select>
-
-				<input type="email" name="dogEmail" placeholder="Email"/>
-				<input type="number" name="dogPhone" placeholder="Phone #"/>
-				<input type="text" name="dogLocation" placeholder="Owner's Postal Code"/>
+				<h2>Dog Image</h2>
+				<input type="file" name="dogImage" placeholder="Dog Image" accept="image/*" ref={(ref)=>{this.poster = ref}} onChange={this.props.handleUpload}/>
 
 				<button>Submit</button>
 			</form>
@@ -85,4 +79,24 @@ class FormOwner extends React.Component {
 }
 
 export default FormOwner;
-// Dog Owner (Owner name, dog name, dog age*, dog breed, dog gender, dog size, owner location - postal code, email, phone, photo of owner, photo of dog)
+
+// <AutoComplete 
+	// items={DogBreeds}
+	// getItemValue={(item) => item}
+	// renderItem={(item, isHighlighted) =>
+	//     <div >
+	//       {item}
+	//     </div>
+	// }
+	// value={this.state.value}
+	// onChange={(e) => {
+	// 	this.setState({
+	// 		value: e.target.value
+	// 	})
+	// }}
+	// onSelect={(val) => {
+	// 	this.setState({
+	// 		value: val
+	// 	})
+	// }}
+ // />

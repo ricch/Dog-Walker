@@ -9,30 +9,70 @@ import Firebase from './firebase.js';
 
 const dbRefWalkers = Firebase.database().ref('/walkers'); 
 const dbRefDogOwners = Firebase.database().ref('/dogOwners'); 
+const key = 'AIzaSyAYYipUD_bZA3sowjjZlTQGq_09wEgoaNg';
+
+// class Map extends React.Component {
+// 	componentDidMount() {
+// 		ajax({
+// 			url: `https://maps.googleapis.com/maps/api/js`,
+// 			data: {
+// 				api_key: key
+// 			}
+// 		})
+// 		.then((map) => {
+// 			// this.setState({map});
+// 			// console.log(map);
+// 			this.setState({
+// 				map: map
+// 			})
+// 		});
+// 	}
+// }
 
 class App extends React.Component {
 	constructor() {
 		super();
 		this.state = {
+			dogOwner: '',
+			dogName: '',
+			dogAge: '',
+			dogBreed: '',
+			dogEmail: '',
+			dogPhone: '',
+			dogPostal: '',
+
 			walkerName: '',
 			walkerEmail: '',
 			walkerPhone: '',
 			walkerPostal: '',
-			items: [],
+
+			items: [], // to be used for retrieving items from Firebase
 		};
 		this.handleChange = this.handleChange.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
+		this.handleUpload = this.handleUpload.bind(this);
 	}
 
 	handleSubmit(e) {
 		e.preventDefault();
-		const newItem = { // <-- grabbing input from STATE and putting it into an object to ship to Firebase
+		const newDog = { // <-- grabbing input from STATE and putting it into an object to ship to Firebase
+			dogOwner: this.state.dogOwner,
+			dogName: this.state.dogName,
+			dogAge: this.state.dogAge,
+			dogBreed: this.state.dogBreed,
+			dogEmail: this.state.dogEmail,
+			dogPhone: this.state.dogPhone,
+			dogPostal: this.state.dogPostal,
+		}
+		const newWalker = {
 			walkerName: this.state.walkerName,
 			walkerEmail: this.state.walkerEmail,
 			walkerPhone: this.state.walkerPhone,
 			walkerPostal: this.state.walkerPostal,
 		}
-		dbRefWalkers.push(newItem); // sends a copy of the object to store in Firebase
+
+		dbRefWalkers.push(newWalker); // sends a copy of the object to store in Firebase
+		dbRefDogOwners.push(newDog);
 	}
 
 	handleChange(e) {
@@ -41,22 +81,54 @@ class App extends React.Component {
 		});
 	}
 
+	handleUpload(e){
+        e.preventDefault();
+
+		const poster = this.poster.files[0]; // Not sure if this is needed
+		// Points to the root reference
+		const storageRef = firebase.storage().ref();
+
+		// Points to 'images'
+		const imagesRef = storageRef.child('images');
+
+		this.setState({
+			loading: true,
+		});
+		thisImage.put(poster).then((snapshot) => {
+			thisImage.getDownloadURL().then((url) => {
+				this.setState({
+					showPoster: url,
+					loading: false,
+				});
+			});
+		});
+    }
+
 	componentDidMount() {
 	}
 
 	render() {
-		console.log("It works")
+		// console.log("It works")
 		return (
 			<div>
 				<Header />
 				<Intro />
-				{/*
 				<section>
 					<div className="form formDog wrapper">
-						<FormOwner />
+						<FormOwner 
+							handleChange={this.handleChange} 
+							handleSubmit={this.handleSubmit}
+							dogOwner={this.state.dogOwner} 
+							dogName={this.state.dogName} 
+							dogAge={this.state.dogAge}   
+							dogBreed={this.state.dogBreed} 
+							dogEmail={this.state.dogEmail}
+							dogPhone={this.state.dogPhone}
+							dogPostal={this.state.dogPostal}
+						/>
 					</div>
 				</section>
-				*/}
+				{/*
 				<section>
 					<div className="form formWalker wrapper">
 						<FormWalker
@@ -69,22 +141,12 @@ class App extends React.Component {
 						/> 						
 					</div>
 				</section>
-
-				{/*
-				<section className="form add-item">
-					<form onSubmit={this.handleSubmit}>
-						<h2>Walker Test Form</h2>
-						<input type="text" name="walkerName" placeholder="Dog walker name?" onChange={this.handleChange} value={this.state.walkerName}/> 
-						<input type="text" name="walkerPostal" placeholder="Dog Walker Postal?" onChange={this.handleChange} value={this.state.walkerPostal} />
-						<button>Add Item</button>
-					</form>
-				</section>
-
 				*/}
 
 				<section className='display-item'>
 					<div className='wrapper'>
 						<ul>
+
 						</ul>
 					</div>
 				</section>

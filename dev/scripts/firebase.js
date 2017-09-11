@@ -6,10 +6,14 @@ var config = {
 	authDomain: "the-puggle-is-real.firebaseapp.com",
 	databaseURL: "https://the-puggle-is-real.firebaseio.com",
 	projectId: "the-puggle-is-real",
-	storageBucket: "the-puggle-is-real.appspot.com",
+	storageBucket: "the-puggle-is-real.appspot.com", 
 	messagingSenderId: "484903284387"
 };
 
 firebase.initializeApp(config);
+
+// var storage = firebase.storage();
+// var storageRef = storage.ref();
+// var imagesRef = storageRef.child('images');
 
 export default firebase;
