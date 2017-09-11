@@ -21,7 +21,11 @@ label {
 	font-weight: 300;
 	font-size: 2rem;
 	display: block;
-	color: $secondaryColor;
+	color: $quaternaryColor;
+}
+
+input[name="dogPostal"], input[name="walkerPostal"] {
+	text-transform: uppercase;
 }
 
 input::-webkit-input-placeholder {color: #ccc; font-weight: 300; font-style: italic; font-size: 1.4rem;}
@@ -37,6 +41,15 @@ input:-ms-input-placeholder {color: #ccc; font-weight: 300; font-style: italic; 
 		width: calc((100%  / 2) - 20px);
 		margin: 10px;
 		float: left;
+		@include respond-to('small') {
+			width: 100%;
+		}
+	}
+	hr {
+		width: 60%;
+		margin: 40px auto;
+		display: block;
+		border-top:1px solid #eee;
 	}
 	button {
 		width: 100%;
@@ -45,7 +58,7 @@ input:-ms-input-placeholder {color: #ccc; font-weight: 300; font-style: italic; 
 		display: block;
 		border-radius: 2px;
 		// min-width: 88px;
-		background-color: $secondaryColor;
+		background-color: $tertiaryColor;
 		font-weight: 300;
 		text-transform: uppercase;
 		letter-spacing: 2px;
@@ -57,7 +70,7 @@ input:-ms-input-placeholder {color: #ccc; font-weight: 300; font-style: italic; 
 		padding: 20px 6px;
 		transition: .3s all;
 		&:hover {
-			background-color: darken($secondaryColor,10);
+			background-color: darken($tertiaryColor,10);
 		}
 	}
 }
