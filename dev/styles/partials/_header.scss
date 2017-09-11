@@ -3,6 +3,8 @@ header {
 	color: #fff;
 	padding: 30px 0;
 	.wrapper{
-
+		text-align: right;
+		h1 {font-size: 6.4rem; color: $tertiaryColor;}
+		h2 {font-size: 2rem; font-family: $primaryFont; letter-spacing: 2px;}
 	}
 }
