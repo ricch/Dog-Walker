@@ -10,34 +10,9 @@ import Toggle from 'react-toggle';
 import { withGoogleMap, GoogleMap, Marker } from "react-google-maps";
 import withScriptjs from "react-google-maps/lib/async/withScriptjs";
 
-const googleMapURL="https://maps.googleapis.com/maps/api/js?v=3.27&libraries=places,geometry&key=AIzaSyAWXnC5gDvwVjIEwJqb5apxx89YOCL_NhU"
+import MapTest from './map.js'; 
 
-const MyGoogleMap = withGoogleMap(props => {
-	return (
-		<GoogleMap
-			defaultZoom={16}
-			defaultCenter={{ lat: 43.6482683, lng: -79.4000474 }}
-			// Pass the map reference here as props
-			googleMapURL={googleMapURL}
-		>
-		</GoogleMap>
-		)
-})
 
-class MapContainer extends React.Component {
-	render() {
-		return (
-			<MyGoogleMap 
-				containerElement={
-					<div style={{ height: `450px` }} />
-				}
-				mapElement={
-					<div style={{ height: `430px` }} />
-				}
-			/>
-		);
-	}
-}
 
 const dbRefWalkers = Firebase.database().ref('/walkers'); 
 const dbRefDogOwners = Firebase.database().ref('/dogOwners'); 
@@ -85,7 +60,7 @@ class App extends React.Component {
 
 	handleSubmit(e) {
 		e.preventDefault();
-		console.log(e.target.id)
+		const type = e.target.id;
 		const newDog = { // <-- grabbing input from STATE and putting it into an object to ship to Firebase
 			dogOwner: this.state.dogOwner,
 			dogName: this.state.dogName,
@@ -105,11 +80,36 @@ class App extends React.Component {
 			walkerPostal: this.state.walkerPostal,
 			walkerPrice: this.state.walkerPrice,
 		}
-		if (e.target.id === 'formWalker') {	
-		dbRefWalkers.push(newWalker); // sends a copy of the object to store in Firebase
-		} else if (e.target.id === 'formOwner') {
-		dbRefDogOwners.push(newDog);
+		//
+		var geocoder = new google.maps.Geocoder();
+		var address = '';
+		if (type === 'formWalker') {	
+			address = newWalker.walkerPostal
+		} else if (type === 'formOwner') {
+			address = newDog.dogPostal
 		}
+		geocoder.geocode({'address' : address}, function(results,status){
+			// console.log (results[0].geometry.location.lat());
+			console.log (e)
+			// console.log (results);
+
+			if (type === 'formWalker') {	
+				//If it was a walker we need update the walk info with lat lng
+				newWalker.lat = results[0].geometry.location.lat();
+				newWalker.lng = results[0].geometry.location.lng();
+				dbRefWalkers.push(newWalker); // sends a copy of the object to store in Firebase
+			} else if (type === 'formOwner') {
+				//If it is dog we need to update dog with lat lng
+				newDog.lat = results[0].geometry.location.lat();
+				newDog.lng = results[0].geometry.location.lng();
+
+				dbRefDogOwners.push(newDog);
+
+			}
+		})
+		
+
+
 		// dbRefWalkers.push(newWalker);
 		// dbRefDogOwners.push(newDog);
 	}
@@ -145,12 +145,12 @@ class App extends React.Component {
 		dbRefDogOwners.on('value', (snapshot) => { // <-- Creating a snapshot of Owners from Firebase
 			const newItemsArray = [];
 			const firebaseItems = snapshot.val();
-			console.log(firebaseItems);
+			// console.log(firebaseItems);
 			for (let key in firebaseItems) { // <-- For In loop : iterate over the object .. the key corresponds to the key of the object?
 				const firebaseItem = (firebaseItems[key]);
 				firebaseItem.id = key;
 				newItemsArray.push(firebaseItem); // <-- grabs each one of those items and puts them into an array
-				console.log(newItemsArray);
+				// console.log(newItemsArray);
 			}
 			this.setState({
 				// items: newItemsArray,
@@ -161,12 +161,12 @@ class App extends React.Component {
 		dbRefWalkers.on('value', (snapshot) => { // <-- Creating a snapshot of Walkers from Firebase
 			const newItemsArray = [];
 			const firebaseItems = snapshot.val();
-			console.log(firebaseItems);
+			// console.log(firebaseItems);
 			for (let key in firebaseItems) { // <-- For In loop : iterate over the object .. the key corresponds to the key of the object?
 				const firebaseItem = (firebaseItems[key]);
 				firebaseItem.id = key;
 				newItemsArray.push(firebaseItem); // <-- grabs each one of those items and puts them into an array
-				console.log(newItemsArray);
+				// console.log(newItemsArray);
 			}
 			this.setState({
 				// items: newItemsArray,
@@ -202,7 +202,7 @@ class App extends React.Component {
 	render() {
 		// console.log("It works")
 		let isOwner = ( // <-- Creating a variable for the Owner Form
-				<div className="form formDog wrapper">
+				<div className="form formDog">
 					<FormOwner 
 						handleChange={this.handleChange} 
 						handleSubmit={this.handleSubmit}
@@ -223,7 +223,7 @@ class App extends React.Component {
 		);
 
 		let isWalker = ( // <-- Creating a variable for the Walker Form
-			<div className="form formWalker wrapper">
+			<div className="form formWalker">
 				<FormWalker
 					handleChange={this.handleChange} 
 					handleSubmit={this.handleSubmit}
@@ -239,7 +239,23 @@ class App extends React.Component {
 
 		let isForm = (
 			<div>
-				<h1>Blah goes here</h1>
+				<div className="labelSignUp wrapper">
+					<label>
+						<span>Are You a Dog Walker?</span>
+						<Toggle
+							defaultChecked={this.isOwner}
+							icons={false}
+							onChange={this.handleToggle}
+						/>
+						<span>Are you a Dog Owner?</span>
+					</label>
+				</div>
+
+				{/* Insert IsOwner vs. IsWalker Form Here */}
+				<div className="wrapper">
+					{/* turnorary opteration */}
+					{this.state.isOwner === true ? isOwner : isWalker}
+				</div>
 			</div>
 		)
 		return (
@@ -250,19 +266,9 @@ class App extends React.Component {
 					<div className="wrapper">
 						<h1>Join Our Nation of Dog Walkers</h1>
 						<button className="buttonSignUp" onClick={this.showForm}>Sign Up</button>
-						<div className="labelSignUp">
-							<label>
-								<span>Are You a Dog Walker?</span>
-								<Toggle
-									defaultChecked={this.isOwner}
-									icons={false}
-									onChange={this.handleToggle}
-								/>
-								<span>Are you a Dog Owner?</span>
-							</label>
-						</div>
+						
+
 						{/*
-						<button onClick={this.handleToggle}>asdf</button>
 						<button onClick={this.showOwner}>Owner?</button>
 						<button onClick={this.showWalker}>Walker?</button>
 						*/}
@@ -270,19 +276,20 @@ class App extends React.Component {
 				</section>
 
 				{/* Insert Form Display Here */}
-				<section> 
-					{this.state.isForm === true ? isForm : null}
+				<section className="isForm"> 
+						{this.state.isForm === true ? isForm : null}
 				</section>
 
-				{/* Insert IsOwner vs. IsWalker Form Here */}
-				<section>
-					{/* turnorary opteration */}
-					{this.state.isOwner === true ? isOwner : isWalker}
-				</section>
+				
 
 				{/* Insert Google Maps Here */}
 				<section>
-					<MapContainer />
+					<MapTest
+						containerElement = {<div style={{height:450+'px'}} />}
+		 				mapElement = {<div style={{height:430+'px'}} />}
+		 				markers = {this.state.itemsOwner.concat(this.state.itemsWalker)}
+					 />
+					{/*<MapContainer />*/}
 				</section>	
 
 				<section className='display-item'>
@@ -312,7 +319,7 @@ class App extends React.Component {
 							<h2>Hire a dog walker!</h2>
 							<ul className='gallery'>
 								{this.state.itemsWalker.map((item) => {
-										console.log('test');
+										// console.log('test');
 									return (
 										<li key={item.id}>
 											<h3>{item.walkerName}</h3>

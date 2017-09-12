@@ -31,7 +31,7 @@ class FormOwner extends React.Component {
 				</div>
 				<div>
 					<label htmlFor="dogOwner"><i className="fa fa-map-marker" aria-hidden="true"></i> Location (Postal Code) <span className="required">*</span></label>
-					<input type="text" name="dogPostal" placeholder="eg - M1M (first three characters only)" onChange={this.props.handleChange} value={this.props.dogPostal}/>
+					<input id="postalCode" type="text" name="dogPostal" placeholder="eg - M1M (first three characters only)" onChange={this.props.handleChange} value={this.props.dogPostal}/>
 				</div>
 				<h2>Details About Your Canine Companion</h2>
 				<div>

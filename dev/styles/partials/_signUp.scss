@@ -1,10 +1,11 @@
 .signUp {
-	padding: 40px 0;
+	// padding: 40px 0;
+	height: 35vh;
 	.wrapper {
 		// max-width: 700px;
-		margin-top: -150px;
+		margin-top: -10vh;
 		background-color: #fff;
-		padding: 30px 30px 50px;
+		padding: 30px 30px 10px;
 		
 		// box-shadow: 0 -3px 10px rgba(0,0,0,.2);
 	}
@@ -13,13 +14,7 @@
 		font-size: 4rem;
 		margin: 20px 0;
 	}
-	label {
-		text-align: center;
-		font-size: 2.2rem;
-		.react-toggle {
-			margin: 0 30px;
-		}
-	}
+	
 	.buttonSignUp {
 		text-align: center;
 		margin: 30px auto;
@@ -35,6 +30,19 @@
 		letter-spacing: 2px;
 		&:hover {
 			background-color: darken($primaryColor,5);
+		}
+	}
+}
+
+.isForm {
+	.labelSignUp {
+		text-align: center;
+		label {
+			text-align: center;
+			font-size: 2.2rem;
+			.react-toggle {
+				margin: 0 30px;
+			}
 		}
 	}
 }
