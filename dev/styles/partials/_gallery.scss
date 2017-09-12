@@ -2,6 +2,10 @@
 	h2 {
 		font-size: 8rem;
 		text-align: center;
+
+		@include respond-to('small') {
+			font-size: 4rem;
+		}
 	}
 }
 
@@ -34,6 +38,11 @@
 		display: block;
 		border: 10px solid #fff;
 		box-shadow: 0 0 15px #888;
+		@include respond-to('small') {
+			width: 60%;
+			border: 8px solid #fff;
+			box-shadow: 0 0 8px #888;
+		}
 	}
 	h3 {
 		background-color: $quaternaryColor;
