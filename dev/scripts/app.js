@@ -6,31 +6,41 @@ import Intro from './intro.js';
 import FormOwner from './formOwner.js';
 import FormWalker from './formWalker.js';
 import Firebase from './firebase.js'; 
-import Toggle from 'react-toggle'
+import Toggle from 'react-toggle';
+import { withGoogleMap, GoogleMap, Marker } from "react-google-maps";
+import withScriptjs from "react-google-maps/lib/async/withScriptjs";
+
+const googleMapURL="https://maps.googleapis.com/maps/api/js?v=3.27&libraries=places,geometry&key=AIzaSyAWXnC5gDvwVjIEwJqb5apxx89YOCL_NhU"
+
+const MyGoogleMap = withGoogleMap(props => {
+	return (
+		<GoogleMap
+			defaultZoom={16}
+			defaultCenter={{ lat: 43.6482683, lng: -79.4000474 }}
+			// Pass the map reference here as props
+			googleMapURL={googleMapURL}
+		>
+		</GoogleMap>
+		)
+})
+
+class MapContainer extends React.Component {
+	render() {
+		return (
+			<MyGoogleMap 
+				containerElement={
+					<div style={{ height: `450px` }} />
+				}
+				mapElement={
+					<div style={{ height: `430px` }} />
+				}
+			/>
+		);
+	}
+}
 
 const dbRefWalkers = Firebase.database().ref('/walkers'); 
 const dbRefDogOwners = Firebase.database().ref('/dogOwners'); 
-// const key = 'AIzaSyAYYipUD_bZA3sowjjZlTQGq_09wEgoaNg';
-
-
-// class Map extends React.Component {
-// 	componentDidMount() {
-// 		ajax({
-// 			url: `https://maps.googleapis.com/maps/api/js`,
-// 			data: {
-// 				api_key: key
-// 			}
-// 		})
-// 		.then((map) => {
-// 			// this.setState({map});
-// 			// console.log(map);
-// 			this.setState({
-// 				map: map
-// 			})
-// 		});
-// 	}
-// }
-
 
 class App extends React.Component {
 	constructor() {
@@ -50,7 +60,6 @@ class App extends React.Component {
 			// 	age: '',
 			// }
 
-
 			walkerName: '',
 			walkerEmail: '',
 			walkerPhone: '',
@@ -62,6 +71,7 @@ class App extends React.Component {
 			itemsOwner: [],
 
 			isOwner: null, // <-- Boolean to toggle which form is displayed. By default, owner form will display
+			isForm: false,
 		};
 		this.handleChange = this.handleChange.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
@@ -70,6 +80,7 @@ class App extends React.Component {
 
 		this.showOwner = this.showOwner.bind(this);
 		this.showWalker = this.showWalker.bind(this);
+		this.showForm = this.showForm.bind(this);
 	}
 
 	handleSubmit(e) {
@@ -128,9 +139,7 @@ class App extends React.Component {
 			});
 		});
 
-    }
-
-	
+    }	
 
 	componentDidMount() {
 		dbRefDogOwners.on('value', (snapshot) => { // <-- Creating a snapshot of Owners from Firebase
@@ -184,6 +193,12 @@ class App extends React.Component {
 		})
 	}
 
+	showForm() {
+		this.setState({
+			isForm: true
+		})
+	}
+
 	render() {
 		// console.log("It works")
 		let isOwner = ( // <-- Creating a variable for the Owner Form
@@ -221,6 +236,12 @@ class App extends React.Component {
 				/> 						
 			</div>
 		)
+
+		let isForm = (
+			<div>
+				<h1>Blah goes here</h1>
+			</div>
+		)
 		return (
 			<div>
 				<Header />
@@ -228,7 +249,7 @@ class App extends React.Component {
 				<section className="signUp">
 					<div className="wrapper">
 						<h1>Join Our Nation of Dog Walkers</h1>
-						<button className="buttonSignUp">Sign Up</button>
+						<button className="buttonSignUp" onClick={this.showForm}>Sign Up</button>
 						<div className="labelSignUp">
 							<label>
 								<span>Are You a Dog Walker?</span>
@@ -247,11 +268,22 @@ class App extends React.Component {
 						*/}
 					</div>
 				</section>
-							
+
+				{/* Insert Form Display Here */}
+				<section> 
+					{this.state.isForm === true ? isForm : null}
+				</section>
+
+				{/* Insert IsOwner vs. IsWalker Form Here */}
 				<section>
 					{/* turnorary opteration */}
 					{this.state.isOwner === true ? isOwner : isWalker}
 				</section>
+
+				{/* Insert Google Maps Here */}
+				<section>
+					<MapContainer />
+				</section>	
 
 				<section className='display-item'>
 					<div className='ownersGallery'>
