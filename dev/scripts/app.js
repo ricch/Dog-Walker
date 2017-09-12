@@ -60,12 +60,14 @@ class App extends React.Component {
 			items: [], // to be used for retrieving items from Firebase
 			itemsWalker: [],
 			itemsOwner: [],
-			
-			isOwner: true
+
+			isOwner: null, // <-- Boolean to toggle which form is displayed. By default, owner form will display
 		};
 		this.handleChange = this.handleChange.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
 		this.handleUpload = this.handleUpload.bind(this);
+		this.handleToggle = this.handleToggle.bind(this);
+
 		this.showOwner = this.showOwner.bind(this);
 		this.showWalker = this.showWalker.bind(this);
 	}
@@ -126,18 +128,12 @@ class App extends React.Component {
 			});
 		});
 
-		// var inputFile = document.getElementById('fileItem');
-		// inputFile.addEventListener('change', handleUpload, false);
-
     }
 
-	// toggleClass() {
-	// 	const currentState = this.state.active;
-	// 	this.setState({ active: !currentState });
-	// };
+	
 
 	componentDidMount() {
-		dbRefDogOwners.on('value', (snapshot) => {
+		dbRefDogOwners.on('value', (snapshot) => { // <-- Creating a snapshot of Owners from Firebase
 			const newItemsArray = [];
 			const firebaseItems = snapshot.val();
 			console.log(firebaseItems);
@@ -152,7 +148,8 @@ class App extends React.Component {
 				itemsOwner: newItemsArray,
 			})
 		}) 
-		dbRefWalkers.on('value', (snapshot) => {
+
+		dbRefWalkers.on('value', (snapshot) => { // <-- Creating a snapshot of Walkers from Firebase
 			const newItemsArray = [];
 			const firebaseItems = snapshot.val();
 			console.log(firebaseItems);
@@ -169,13 +166,19 @@ class App extends React.Component {
 		}) 
 	}
 
-	showWalker() {
+	handleToggle() {
+		this.setState({
+			isOwner: !this.state.isOwner
+		})
+	}
+
+	showWalker() { // <-- If showWalker button is clicked, set state of showOwner boolean to FALSE (hidden)
 		this.setState({
 			isOwner: false
 		})
 	}
 
-	showOwner() {
+	showOwner() { // <-- If showWalker button is clicked, set state of showOwner boolean to TRUE
 		this.setState({
 			isOwner: true
 		})
@@ -183,14 +186,14 @@ class App extends React.Component {
 
 	render() {
 		// console.log("It works")
-		let isOwner = (
+		let isOwner = ( // <-- Creating a variable for the Owner Form
 				<div className="form formDog wrapper">
 					<FormOwner 
 						handleChange={this.handleChange} 
 						handleSubmit={this.handleSubmit}
 						handleUpload={this.handleUpload}
-						dogOwner={this.state.dogOwner} 
 						// dog={this.state.dog}
+						dogOwner={this.state.dogOwner} 
 						dogName={this.state.dogName} 
 						dogAge={this.state.dogAge}   
 						dogBreed={this.state.dogBreed} 
@@ -204,11 +207,12 @@ class App extends React.Component {
 				</div>
 		);
 
-		let isWalker = (
+		let isWalker = ( // <-- Creating a variable for the Walker Form
 			<div className="form formWalker wrapper">
 				<FormWalker
 					handleChange={this.handleChange} 
 					handleSubmit={this.handleSubmit}
+
 					walkerName={this.state.walkerName} 
 					walkerEmail={this.state.walkerEmail}
 					walkerPhone={this.state.walkerPhone}
@@ -223,31 +227,31 @@ class App extends React.Component {
 				<Intro />
 				<section className="signUp">
 					<div className="wrapper">
-						<h1>Sign Up</h1>
-						<label>
-							<Toggle
-								defaultChecked={this.state.baconIsReady}
-								icons={{
-									checked: <i className="fa fa-paw" aria-hidden="true"></i>,
-									unchecked: '2',
-								}}
-								onChange={this.handleBaconChange}
-							/>
-							<span>Toggle information goes here</span>
-						</label>
+						<h1>Join Our Nation of Dog Walkers</h1>
+						<button className="buttonSignUp">Sign Up</button>
+						<div className="labelSignUp">
+							<label>
+								<span>Are You a Dog Walker?</span>
+								<Toggle
+									defaultChecked={this.isOwner}
+									icons={false}
+									onChange={this.handleToggle}
+								/>
+								<span>Are you a Dog Owner?</span>
+							</label>
+						</div>
+						{/*
+						<button onClick={this.handleToggle}>asdf</button>
 						<button onClick={this.showOwner}>Owner?</button>
 						<button onClick={this.showWalker}>Walker?</button>
+						*/}
 					</div>
 				</section>
-				
-				
-				
+							
 				<section>
 					{/* turnorary opteration */}
 					{this.state.isOwner === true ? isOwner : isWalker}
-					}
 				</section>
-				
 
 				<section className='display-item'>
 					<div className='ownersGallery'>
@@ -263,7 +267,7 @@ class App extends React.Component {
 											<h4>Owner Information:</h4>
 											<p>{item.dogOwner}</p>
 											<a href={"mailto:" + item.dogEmail}>
-												<button><i className="fa fa-phone" aria-hidden="true"></i> Contact</button>
+												<button><i className="fa fa-paw" aria-hidden="true"></i> Take For a Walk</button>
 											</a>
 										</li>
 									);
@@ -280,9 +284,9 @@ class App extends React.Component {
 									return (
 										<li key={item.id}>
 											<h3>{item.walkerName}</h3>
-											<p><span className="price">${item.walkerPrice}</span> per &frac12; hr walk</p>
+											<p className="priceP"><span className="price">${item.walkerPrice}</span><br/>per &frac12; hr walk</p>
 											<a href={"mailto:" + item.walkerEmail}>
-												<button><i className="fa fa-paw" aria-hidden="true"></i> Hire</button>
+												<button><i className="fa fa-commenting" aria-hidden="true"></i> Get In Touch</button>
 											</a>
 										</li>
 									);

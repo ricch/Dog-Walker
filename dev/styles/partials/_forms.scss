@@ -27,6 +27,10 @@ label {
 input[name="dogPostal"], input[name="walkerPostal"] {
 	text-transform: uppercase;
 }
+input[type="file"] {
+	font-weight: 300;
+	color: #ccc;
+}
 
 input::-webkit-input-placeholder {color: #ccc; font-weight: 300; font-style: italic; font-size: 1.4rem;}
 input:-moz-placeholder { /* Firefox 18- */ color: #ccc; font-weight: 300; font-style: italic; font-size: 1.4rem;}
@@ -37,6 +41,7 @@ input:-ms-input-placeholder {color: #ccc; font-weight: 300; font-style: italic; 
 	border: 1px solid #ddd;
 	padding: 20px;
 	max-width: 800px;
+	box-shadow: 0 0 10px #eaeaea;
 	div {
 		width: calc((100%  / 2) - 20px);
 		margin: 10px;
@@ -58,19 +63,34 @@ input:-ms-input-placeholder {color: #ccc; font-weight: 300; font-style: italic; 
 		display: block;
 		border-radius: 2px;
 		// min-width: 88px;
-		background-color: $tertiaryColor;
 		font-weight: 300;
 		text-transform: uppercase;
-		letter-spacing: 2px;
+		letter-spacing: 4px;
 		cursor: pointer;
 		border: 0;
 		min-width: 120px;
 		color: #fff;
-		font-size: 1.8rem;
+		font-size: 2.2rem;
 		padding: 20px 6px;
 		transition: .3s all;
-		&:hover {
-			background-color: darken($tertiaryColor,10);
+	}
+	h2 {
+		font-size: 2.8rem;
+	}
+	#formWalker {
+		button {
+		background-color: $primaryColor;
+			&:hover {
+				background-color: darken($primaryColor,10);
+			}
+		}
+	}
+	#formOwner {
+		button {
+		background-color: $tertiaryColor;
+			&:hover {
+				background-color: darken($tertiaryColor,10);
+			}
 		}
 	}
 }

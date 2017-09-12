@@ -30,7 +30,7 @@ class FormOwner extends React.Component {
 					<input type="number" name="dogPhone" placeholder="eg - 9671111" max="9999999999" onChange={this.props.handleChange} value={this.props.dogPhone}/>
 				</div>
 				<div>
-					<label htmlFor="dogOwner">Postal Code</label>
+					<label htmlFor="dogOwner">Location (Postal Code)</label>
 					<input type="text" name="dogPostal" placeholder="eg - M1M (first three characters only)" onChange={this.props.handleChange} value={this.props.dogPostal}/>
 				</div>
 				<h2>Details About Your Canine Companion</h2>
@@ -39,7 +39,7 @@ class FormOwner extends React.Component {
 					<input type="text" name="dogName" placeholder="eg - Scooby Doo" onChange={this.props.handleChange} value={this.props.dogName}/>
 				</div>
 				<div>
-					<label htmlFor="dogAge">Age (yrs)</label>
+					<label htmlFor="dogAge">Age (years)</label>
 					<input type="number" name="dogAge" min="0" placeholder="eg - 8" onChange={this.props.handleChange} value={this.props.dogAge}/>
 				</div>
 				<div>
@@ -60,17 +60,19 @@ class FormOwner extends React.Component {
 					<label htmlFor="dogSize">Size</label>
 					<select name="dogSize" onChange={this.props.handleChange} value={this.props.dogSize}>
 						<option value="" disabled selected>- Select -</option>
-						<option value="xs">XS (0-10 lb)</option>
-						<option value="s">S (10-25 lb)</option>
-						<option value="m">M (20-50 lb)</option>
-						<option value="l">L (50-75 lb)</option>
-						<option value="xl">XL (75-90 lb)</option>
-						<option value="xxl">XL (90+ lb)</option>
+						<option value="XS">XS (0-10 lb)</option>
+						<option value="S">S (10-25 lb)</option>
+						<option value="M">M (20-50 lb)</option>
+						<option value="L">L (50-75 lb)</option>
+						<option value="XL">XL (75-90 lb)</option>
+						<option value="XXL">XL (90+ lb)</option>
 					</select>
 				</div>
 
-				<h2>Dog Image</h2>
-				<input type="file" id="fileItem" name="dogImage" accept="image/*" ref={(ref)=>{this.file = ref}} onChange={this.props.handleUpload}/>
+				<div>
+					<label htmlFor="dogImage">Dog Photo</label>
+					<input type="file" id="fileItem" name="dogImage" accept="image/*" ref={(ref)=>{this.file = ref}} onChange={this.props.handleUpload}/>
+				</div>
 				{/*
 				*/}
 				<button>Submit</button>

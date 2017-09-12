@@ -18,7 +18,7 @@ h3 {}
 h4 {}
 
 a {
-	color: $primaryColor;
+	color: $tertiaryColor;
 	text-decoration: none;
 	transition: .3s all;
 }
@@ -51,4 +51,8 @@ button {}
 
 .hidden {
 	display: none;
+}
+
+.flex {
+	display: flex;
 }

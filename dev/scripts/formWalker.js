@@ -18,7 +18,7 @@ class FormWalker extends React.Component {
 					<input type="number" name="walkerPhone" placeholder="eg - 9671111" max="9999999999" onChange={this.props.handleChange} value={this.props.walkerPhone}/> 
 				</div>
 				<div>
-					<label htmlFor="walkerPostal">Postal Code</label>
+					<label htmlFor="walkerPostal">Location (Postal Code)</label>
 					<input type="text" name="walkerPostal" placeholder="eg - M1M (first three characters only)" onChange={this.props.handleChange} value={this.props.walkerPostal}/> 
 				</div>
 				<div>

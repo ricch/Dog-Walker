@@ -1,0 +1,32 @@
+.signUp {
+	padding: 40px 0;
+	h1 {
+		text-align: center;
+		font-size: 4rem;
+		margin: 20px 0;
+	}
+	label {
+		text-align: center;
+		font-size: 2.2rem;
+		.react-toggle {
+			margin: 0 30px;
+		}
+	}
+	.buttonSignUp {
+		text-align: center;
+		margin: 30px auto;
+		background-color: $primaryColor;
+		padding: 15px 50px;
+		border: none;
+		font-size: 2.2rem;
+		display: block;
+		color: #fff;
+		border-radius: 45px;
+		transition: .3s all;
+		font-weight: 300;
+		letter-spacing: 2px;
+		&:hover {
+			background-color: darken($primaryColor,5);
+		}
+	}
+}
