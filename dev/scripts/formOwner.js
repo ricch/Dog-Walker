@@ -22,7 +22,7 @@ class FormOwner extends React.Component {
 					<input type="text" name="dogOwner" placeholder="eg - John Smith" onChange={this.props.handleChange} value={this.props.dogOwner}/>
 				</div>
 				<div>
-					<label htmlFor="dogOwner"><i className="fa fa-envelope" aria-hidden="true"></i> Email <span className="required">*</span></label>
+					<label htmlFor="dogOwner"><i className="fa fa-envelope" aria-hidden="true"></i>Email <span className="required">*</span></label>
 					<input type="email" name="dogEmail" placeholder="eg - john@smith.com" onChange={this.props.handleChange} value={this.props.dogEmail}/>
 				</div>
 				<div>
@@ -30,7 +30,7 @@ class FormOwner extends React.Component {
 					<input type="number" name="dogPhone" placeholder="eg - 416-967-1111" max="9999999999" onChange={this.props.handleChange} value={this.props.dogPhone}/>
 				</div>
 				<div>
-					<label htmlFor="dogOwner"><i className="fa fa-map-marker" aria-hidden="true"></i> Location (Postal Code)</label>
+					<label htmlFor="dogOwner"><i className="fa fa-map-marker" aria-hidden="true"></i> Location (Postal Code) <span className="required">*</span></label>
 					<input type="text" name="dogPostal" placeholder="eg - M1M (first three characters only)" onChange={this.props.handleChange} value={this.props.dogPostal}/>
 				</div>
 				<h2>Details About Your Canine Companion</h2>

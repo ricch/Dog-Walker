@@ -10,8 +10,7 @@ class FormWalker extends React.Component {
 					<input type="text" name="walkerName" placeholder="eg - John Smith" onChange={this.props.handleChange} value={this.props.walkerName}/>
 				</div>
 				<div> 
-					<label htmlFor="walkerEmail"><i className="fa fa-envelope" aria-hidden="true"></i> 
- Email <span className="required">*</span></label>
+					<label htmlFor="walkerEmail"><i className="fa fa-envelope" aria-hidden="true"></i>Email <span className="required">*</span></label>
 					<input type="email" name="walkerEmail" placeholder="eg - john@smith.com" onChange={this.props.handleChange} value={this.props.walkerEmail}/> 
 				</div>
 				<div>
