@@ -1,19 +1,38 @@
 .signUp {
 	// padding: 40px 0;
-	height: 35vh;
+	height: 30vh;
+	@include respond-to('small') {
+		height: 40vh;
+	}
+	
 	.wrapper {
 		// max-width: 700px;
 		margin-top: -10vh;
 		background-color: #fff;
 		padding: 30px 30px 10px;
+		@include respond-to('small') {
+			margin-top: 0;
+		}
 		
 		// box-shadow: 0 -3px 10px rgba(0,0,0,.2);
 	}
+
 	h1 {
 		text-align: center;
-		font-size: 4rem;
-		margin: 20px 0;
+		font-size: 3.2rem; 
+		font-family: $primaryFont; 
+		letter-spacing: 2px;
+		color: $primaryColor;
+		@include respond-to('small') {
+			font-size: 2.3rem;
+			line-height: 1;
+		}
 	}
+	// h2 {
+	// 	text-align: center;
+	// 	font-size: 2.4rem;
+	// 	margin: 10px 0;
+	// }
 	
 	.buttonSignUp {
 		text-align: center;

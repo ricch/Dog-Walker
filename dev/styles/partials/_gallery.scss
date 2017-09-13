@@ -14,12 +14,47 @@
 }
 
 .ownersGallery {
+	.gallery {
+		li {
+			// position: relative;
+			text-align: center;
+			
+		}
+		.liFlex {
+			display: flex;
+			flex-direction: column;
+			// @include respond-to('small') {
+			// 	flex-direction: row;
+			// }
+		}
+		h3 {
+			// position: absolute;
+			// top: 210px;
+			// left: 50%;
+			// transform: translateX(-50%);
+			// background-color: rgba(0,0,0,.9);
+			// width: 60%;
+			text-align: center;
+			// border: 2px solid #fff;
+			// box-shadow: 0 5px 6px #777;
+			text-transform: lowercase;
+			letter-spacing: 3px;
+			color: $primaryColor;
+		}
+	}
 }
 
 .walkersGallery {
 	background-color: $tertiaryColor;
 	h2 {
 		color: #fff;
+	}
+	.gallery {
+		h3 {
+			background-color: $quaternaryColor;
+			color: #fff;
+		}
+		
 	}
 }
 
@@ -34,7 +69,9 @@
 	img {
 		border-radius: 50%;
 		width: 70%;
-		margin:0 auto 20px;
+		// object-fit:cover;
+		// height:250px;
+		margin:0 auto 5px;
 		display: block;
 		border: 10px solid #fff;
 		box-shadow: 0 0 15px #888;
@@ -45,11 +82,10 @@
 		}
 	}
 	h3 {
-		background-color: $quaternaryColor;
-		color: #fff;
+		
 		padding: 10px;
 		text-transform: capitalize;
-		font-size: 2.6rem;
+		font-size: 3rem;
 	}
 	h4 {
 		font-size: 2rem;
@@ -66,8 +102,12 @@
 	}
 	p {
 		padding: 10px 15px;
+		margin: 0;
 		.breed {
 			text-transform: capitalize;
+		}
+		.gender {
+			text-transform: lowercase;
 		}
 	}
 	button {
@@ -88,6 +128,9 @@
 		&:hover {
 			background-color: lighten($quaternaryColor, 55);
 		}
+	}
+	.walkerDescription {
+		
 	}
 	.priceP {
 		text-align: center;

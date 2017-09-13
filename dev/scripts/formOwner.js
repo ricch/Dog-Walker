@@ -15,7 +15,7 @@ class FormOwner extends React.Component {
 	// }
 	render (){
 		return (
-			<form id="formOwner" onSubmit={this.props.handleSubmit}> 
+			<form id="formOwner" className="wow flipInX" onSubmit={this.props.handleSubmit}> 
 				<h2>Owner Information</h2>
 				<div>
 					<label htmlFor="dogOwner"><i className="fa fa-user-circle-o" aria-hidden="true"></i> Name <span className="required">*</span></label>
@@ -30,8 +30,8 @@ class FormOwner extends React.Component {
 					<input type="number" name="dogPhone" placeholder="eg - 416-967-1111" max="9999999999" onChange={this.props.handleChange} value={this.props.dogPhone}/>
 				</div>
 				<div>
-					<label htmlFor="dogOwner"><i className="fa fa-map-marker" aria-hidden="true"></i> Location (Postal Code) <span className="required">*</span></label>
-					<input id="postalCode" type="text" name="dogPostal" placeholder="eg - M1M (first three characters only)" onChange={this.props.handleChange} value={this.props.dogPostal}/>
+					<label htmlFor="dogOwner"><i className="fa fa-map-marker" aria-hidden="true"></i> Location (Address) <span className="required">*</span></label>
+					<input id="postalCode" type="text" name="dogPostal" placeholder="eg - 485 Queen Street West" onChange={this.props.handleChange} value={this.props.dogPostal}/>
 				</div>
 				<h2>Details About Your Canine Companion</h2>
 				<div>
@@ -61,7 +61,7 @@ class FormOwner extends React.Component {
 					<select name="dogSize" onChange={this.props.handleChange} value={this.props.dogSize}>
 						<option value="" disabled selected>- Select -</option>
 						<option value="XS">XS (0-10 lb)</option>
-						<option value="S">S (10-25 lb)</option>
+						<option value="S">S (10-20 lb)</option>
 						<option value="M">M (20-50 lb)</option>
 						<option value="L">L (50-75 lb)</option>
 						<option value="XL">XL (75-90 lb)</option>

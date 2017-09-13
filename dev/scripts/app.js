@@ -2,7 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Header from './header.js';
 import Footer from './footer.js';
-import Intro from './intro.js';
 import FormOwner from './formOwner.js';
 import FormWalker from './formWalker.js';
 import Firebase from './firebase.js'; 
@@ -40,6 +39,10 @@ class App extends React.Component {
 			walkerPhone: '',
 			walkerPostal: '',
 			walkerPrice: '',
+			walkerImage: '',
+			walkerDesc: '',
+
+
 
 			items: [], // to be used for retrieving items from Firebase
 			itemsWalker: [],
@@ -79,6 +82,8 @@ class App extends React.Component {
 			walkerPhone: this.state.walkerPhone,
 			walkerPostal: this.state.walkerPostal,
 			walkerPrice: this.state.walkerPrice,
+			walkerImage: this.state.walkerImage,
+			walkerDesc: this.state.walkerDesc,
 		}
 		//
 		var geocoder = new google.maps.Geocoder();
@@ -233,6 +238,8 @@ class App extends React.Component {
 					walkerPhone={this.state.walkerPhone}
 					walkerPostal={this.state.walkerPostal}
 					walkerPrice={this.state.walkerPrice}
+					walkerImage={this.state.walkerImage}
+					walkerDesc={this.state.walkerDesc}
 				/> 						
 			</div>
 		)
@@ -261,10 +268,9 @@ class App extends React.Component {
 		return (
 			<div>
 				<Header />
-				<Intro />
 				<section className="signUp">
 					<div className="wrapper">
-						<h1>Join Our Nation of Dog Walkers</h1>
+						<h1>Anytime, Anywhere .. Dog walkers on demand.</h1>
 						<button className="buttonSignUp" onClick={this.showForm}>Sign Up</button>
 						
 
@@ -300,14 +306,17 @@ class App extends React.Component {
 								{this.state.itemsOwner.map((item) => {
 									return (
 										<li key={item.id}>
-											<img src={item.dogImage}/>
-											<h3>{item.dogName}</h3>
-											<p>{item.dogAge} year old {item.dogGender} <span className='breed'>{item.dogBreed}</span></p>
-											<h4>Owner Information:</h4>
-											<p>{item.dogOwner}</p>
+											<div className="liFlex">
+											<div><img src={item.dogImage}/></div>
+											<div><h3>{item.dogName}</h3>
+											<p>{item.dogAge} year old <span className='gender'>{item.dogGender}</span> <span className='breed'>{item.dogBreed}</span></p>
+											<h4>Owner: {item.dogOwner}</h4>
+											</div>
+											</div>
 											<a href={"mailto:" + item.dogEmail}>
 												<button><i className="fa fa-paw" aria-hidden="true"></i> Take For a Walk</button>
 											</a>
+											
 										</li>
 									);
 								})}
@@ -323,6 +332,7 @@ class App extends React.Component {
 									return (
 										<li key={item.id}>
 											<h3>{item.walkerName}</h3>
+											<p className="walkerDescription">{item.walkerDesc}</p>
 											<p className="priceP"><span className="price">${item.walkerPrice}</span><br/>per &frac12; hr walk</p>
 											<a href={"mailto:" + item.walkerEmail}>
 												<button><i className="fa fa-commenting" aria-hidden="true"></i> Get In Touch</button>

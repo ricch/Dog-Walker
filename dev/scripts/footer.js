@@ -5,7 +5,7 @@ const Footer = () => {
 		<footer>
 			<div className="wrapper flex">
 				<div className="footerLeft">
-					<p>Created with <i className="fa fa-heart" aria-hidden="true"></i> using React, SASS, Firebase</p>
+					<p>Created with <a href="https://developers.google.com/maps/">Google Maps API</a>, React JS, SASS &amp; Firebase</p>
 				</div>
 				<div className="footerRight">
 					<p>Copyright &copy; 2017 <a href="http://www.richardchin.ca">Richard Chin</a> - <a href="http://www.hackeryou.com">HackerYou</a></p>
