@@ -307,11 +307,14 @@ class App extends React.Component {
 									return (
 										<li key={item.id}>
 											<div className="liFlex">
-											<div><img src={item.dogImage}/></div>
-											<div><h3>{item.dogName}</h3>
-											<p>{item.dogAge} year old <span className='gender'>{item.dogGender}</span> <span className='breed'>{item.dogBreed}</span></p>
-											<h4>Owner: {item.dogOwner}</h4>
-											</div>
+												<div className="dogImage" style={{backgroundImage: `url(${item.dogImage})`}}>
+													{/* <img src={item.dogImage}/> */} 
+												</div>
+												<div>
+													<h3>{item.dogName}</h3>
+													<p>{item.dogAge} year old <span className='gender'>{item.dogGender}</span> <span className='breed'>{item.dogBreed}</span></p>
+													<h4>Owner: {item.dogOwner}</h4>
+												</div>
 											</div>
 											<a href={"mailto:" + item.dogEmail}>
 												<button><i className="fa fa-paw" aria-hidden="true"></i> Take For a Walk</button>

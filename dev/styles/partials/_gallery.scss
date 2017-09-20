@@ -26,6 +26,15 @@
 			// @include respond-to('small') {
 			// 	flex-direction: row;
 			// }
+			.dogImage {
+				background-size: cover;
+				min-height: 250px;
+				min-width: 250px;
+				border-radius: 50%;
+				border: 10px solid #fff;
+				box-shadow: 0 0 15px #888;
+				margin: 0 auto;
+			}
 		}
 		h3 {
 			// position: absolute;
