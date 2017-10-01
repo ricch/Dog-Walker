@@ -2,6 +2,7 @@
 	h2 {
 		font-size: 8rem;
 		text-align: center;
+		margin: 10px 0 60px;
 
 		@include respond-to('small') {
 			font-size: 4rem;
@@ -101,7 +102,7 @@
 		padding: 10px 10px 0;
 	}
 	li {
-		margin: 10px 15px;
+		margin: 15px;
 		width: calc((100% / 3) - 30px;
 		// border: 1px solid #ddd;
 		background-color: #fefefe;
